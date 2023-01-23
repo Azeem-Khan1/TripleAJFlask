@@ -144,10 +144,9 @@ def initPlayers():
     u2 = User(name='Ahad Biabani', uid='ahadB', password='daha4tw', tokens=41)
     u3 = User(name='Akshat Parikh', uid='akshatP', password='akshlatt!!', tokens=40)
     u4 = User(name='Josh Williams', uid='joshW', password='tripleAJfrfr', tokens=38)
-    u5 = User(name='Billy Bob', uid='billyB', password='thagoatfrfr', tokens=54)
-    u6 = User(name='Willy Wonka', uid='willyW', password='chocolate4lyfe', tokens=22)
+    # u5 = User(name='Billy Bob', uid='billyB', password='thagoatfrfr', tokens=54)
 
-    users = [u1, u2, u3, u4, u5, u6]
+    users = [u1, u2, u3, u4, u5]
 
     """Builds sample user/note(s) data"""
     for user in users:
