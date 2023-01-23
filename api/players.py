@@ -31,7 +31,8 @@ class UserAPI:
 
             ''' #1: Key code block, setup USER OBJECT '''
             uo = User(name=name, 
-                      uid=uid)
+                      uid=uid,
+                      tokens=tokens,)
             
             ''' Additional garbage error checking '''
             # set password if provided
@@ -53,6 +54,43 @@ class UserAPI:
             json_ready = [player.read() for player in players]  # prepare output in json
             return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
 
+    class _Update(Resource):
+        def update(self):
+            body = request.get_json() # get the body of the request
+            id = body.get('id') # get the ID (Know what to reference)
+
+            # Set up (just in case they do not work out)
+            name = ''
+            uid = ''
+            password = ''
+
+            try:
+                name = body.get("name") # get and update the name
+            except:
+                pass
+            try:
+                uid = body.get("uid") # get and update the uid
+            except:
+                pass
+            try: 
+                password = body.get("password") # get and update password
+            except:
+                pass
+            
+            user = User.query.get(id) # get the user (using the uid in this case)
+            user.update(name, uid, password)
+            return f"{user.read()} Updated"
+
+    class _Delete(Resource):
+        def delete(self):
+            body = request.get_json()
+            uid = body.get('uid')
+            user = User.query.get(uid)
+            user.delete()
+            return f"{user.read()} Has been deleted"
+
+
     # building RESTapi endpoint
     api.add_resource(_Create, '/create')
     api.add_resource(_Read, '/')
+    api.add_resource(_Delete, '/delete')

@@ -17,9 +17,9 @@ class User(db.Model):
     __tablename__ = 'players'  # table name is plural, class name is singular
 
     # Define the User schema with "vars" from object
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer)
     _name = db.Column(db.String(255), unique=False, nullable=False)
-    _uid = db.Column(db.String(255), unique=True, nullable=False)
+    _uid = db.Column(db.String(255), unique=True, nullable=False, primary_key=True)
     _password = db.Column(db.String(255), unique=False, nullable=False)
     _tokens = db.Column(db.Integer)
 
@@ -144,9 +144,10 @@ def initPlayers():
     u2 = User(name='Ahad Biabani', uid='ahadB', password='daha4tw', tokens=41)
     u3 = User(name='Akshat Parikh', uid='akshatP', password='akshlatt!!', tokens=40)
     u4 = User(name='Josh Williams', uid='joshW', password='tripleAJfrfr', tokens=38)
-    # u5 = User(name='Billy Bob', uid='billyB', password='thagoatfrfr', tokens=54)
+    u5 = User(name='Billy Bob', uid='billyB', password='thagoatfrfr', tokens=54)
+    u6 = User(name='Willy Wonka', uid='willyW', password='chocolate4lyfe', tokens=22)
 
-    users = [u1, u2, u3, u4]
+    users = [u1, u2, u3, u4, u5, u6]
 
     """Builds sample user/note(s) data"""
     for user in users:
