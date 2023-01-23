@@ -1,8 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_restful import Api, Resource # used for REST API building
-from datetime import datetime
 
-from model.users import User
+from model.arcades import User
 
 # Change variable name and API name and prefix
 players_api = Blueprint('players_api', __name__,
@@ -37,9 +36,7 @@ class UserAPI:
             ''' Additional garbage error checking '''
             # set password if provided
             if password is not None:
-                uo.set_password(password)
-            # convert to date type
-            
+                uo.set_password(password)            
             
             ''' #2: Key Code block to add user to database '''
             # create user in database
@@ -52,8 +49,8 @@ class UserAPI:
 
     class _Read(Resource):
         def get(self):
-            users = User.query.all()    # read/extract all users from database
-            json_ready = [user.read() for user in users]  # prepare output in json
+            players = User.query.all()    # read/extract all users from database
+            json_ready = [player.read() for player in players]  # prepare output in json
             return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
 
     # building RESTapi endpoint

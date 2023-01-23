@@ -107,7 +107,8 @@ class User(db.Model):
             "id": self.id,
             "name": self.name,
             "uid": self.uid,
-            "tokens": self.tokens
+            "tokens": self.tokens,
+            "password": self._password
         }
 
     # CRUD update: updates user name, password, phone
@@ -145,7 +146,7 @@ def initPlayers():
     u4 = User(name='Josh Williams', uid='joshW', password='tripleAJfrfr', tokens=38)
     # u5 = User(name='Billy Bob', uid='billyB', password='thagoatfrfr', tokens=54)
 
-    users = [u1, u2, u3, u4, u5]
+    users = [u1, u2, u3, u4]
 
     """Builds sample user/note(s) data"""
     for user in users:
