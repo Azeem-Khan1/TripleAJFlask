@@ -142,11 +142,11 @@ def initPlayers():
     """Tester data for table"""
     u1 = User(name='Azeem Khan', uid='azeemK', password='prodlilxeem', tokens=45)
     u2 = User(name='Ahad Biabani', uid='ahadB', password='daha4tw', tokens=41)
-    u3 = User(name='Akshat Parikh', uid='akshatP', password='akshlatt!!', tokens=40)
+    # u3 = User(name='Akshat Parikh', uid='akshatP', password='akshlatt!!', tokens=40)
     u4 = User(name='Josh Williams', uid='joshW', password='tripleAJfrfr', tokens=38)
     # u5 = User(name='Billy Bob', uid='billyB', password='thagoatfrfr', tokens=54)
 
-    users = [u1, u2, u3, u4, u5]
+    users = [u1, u2, u4]
 
     """Builds sample user/note(s) data"""
     for user in users:
