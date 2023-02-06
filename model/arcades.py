@@ -113,14 +113,17 @@ class User(db.Model):
 
     # CRUD update: updates user name, password, phone
     # returns self
-    def update(self, name="", uid="", password=""):
+    def update(self, dictionary): #name="", uid="", password="", tokens=0):
         """only updates values with length"""
-        if len(name) > 0:
-            self.name = name
-        if len(uid) > 0:
-            self.uid = uid
-        if len(password) > 0:
-            self.set_password(password)
+        for key in dictionary:
+            if key == "name":
+                self.name = dictionary[key]
+            if key == "uid":
+                self.uid = dictionary[key]
+            if key == "password":
+                self.set_password(dictionary[key])
+            if key == "tokens":
+                self.tokens = dictionary[key]
         db.session.commit()
         return self
 

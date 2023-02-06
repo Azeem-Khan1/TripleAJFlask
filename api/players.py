@@ -55,30 +55,12 @@ class UserAPI:
             return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
 
     class _Update(Resource):
-        def update(self):
+        def put(self):
             body = request.get_json() # get the body of the request
-            id = body.get('id') # get the ID (Know what to reference)
-
-            # Set up (just in case they do not work out)
-            name = ''
-            uid = ''
-            password = ''
-
-            try:
-                name = body.get("name") # get and update the name
-            except:
-                pass
-            try:
-                uid = body.get("uid") # get and update the uid
-            except:
-                pass
-            try: 
-                password = body.get("password") # get and update password
-            except:
-                pass
-            
-            user = User.query.get(id) # get the user (using the uid in this case)
-            user.update(name, uid, password)
+            userid = body.get('uid') # get the UID (Know what to reference)
+            data = body.get('data')
+            user = User.query.get(userid) # get the user (using the uid in this case)
+            user.update(data)
             return f"{user.read()} Updated"
 
     class _Delete(Resource):
@@ -94,3 +76,4 @@ class UserAPI:
     api.add_resource(_Create, '/create')
     api.add_resource(_Read, '/')
     api.add_resource(_Delete, '/delete')
+    api.add_resource(_Update, '/update')
