@@ -140,22 +140,24 @@ class User(db.Model):
 
 # Builds working data for testing
 def initPlayers():
-    """Create database and tables"""
-    db.create_all()
-    """Tester data for table"""
-    u1 = User(name='Azeem Khan', uid='azeemK', password='prodlilxeem', tokens=45)
-    u2 = User(name='Ahad Biabani', uid='ahadB', password='daha4tw', tokens=41)
-    # u3 = User(name='Akshat Parikh', uid='akshatP', password='akshlatt!!', tokens=40)
-    u4 = User(name='Josh Williams', uid='joshW', password='tripleAJfrfr', tokens=38)
-    # u5 = User(name='Billy Bob', uid='billyB', password='thagoatfrfr', tokens=54)
+    with app.app_context():
+        """Create database and tables"""
+        db.init_app(app)
+        db.create_all()
+        """Tester data for table"""
+        u1 = User(name='Azeem Khan', uid='azeemK', password='prodlilxeem', tokens=45)
+        u2 = User(name='Ahad Biabani', uid='ahadB', password='daha4tw', tokens=41)
+        # u3 = User(name='Akshat Parikh', uid='akshatP', password='akshlatt!!', tokens=40)
+        u4 = User(name='Josh Williams', uid='joshW', password='tripleAJfrfr', tokens=38)
+        # u5 = User(name='Billy Bob', uid='billyB', password='thagoatfrfr', tokens=54)
 
-    users = [u1, u2, u4]
+        users = [u1, u2, u4]
 
-    """Builds sample user/note(s) data"""
-    for user in users:
-        try:
-            user.create()
-        except IntegrityError:
-            '''fails with bad or duplicate data'''
-            db.session.remove()
-            print(f"Records exist, duplicate email, or error: {user.uid}")
+        """Builds sample user/note(s) data"""
+        for user in users:
+            try:
+                user.create()
+            except IntegrityError:
+                '''fails with bad or duplicate data'''
+                db.session.remove()
+                print(f"Records exist, duplicate email, or error: {user.uid}")
