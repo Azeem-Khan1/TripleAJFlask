@@ -142,7 +142,6 @@ class User(db.Model):
 def initPlayers():
     with app.app_context():
         """Create database and tables"""
-        db.init_app(app)
         db.create_all()
         """Tester data for table"""
         u1 = User(name='Azeem Khan', uid='azeemK', password='prodlilxeem', tokens=45)

@@ -4,8 +4,8 @@ import threading
 from flask import render_template  # import render_template from "public" flask libraries
 
 # import "packages" from "this" project
-from __init__ import app  # Definitions initialization
-from model.arcades import initPlayers
+from __init__ import app,db  # Definitions initialization
+from model.playerModel import initPlayers
 
 # setup APIs
 from api.covid import covid_api # Blueprint import api definition
@@ -34,6 +34,7 @@ def stub():
 
 @app.before_first_request
 def activate_job():
+    db.init_app(app)
     initPlayers()
 
 # this runs the application on the development server
