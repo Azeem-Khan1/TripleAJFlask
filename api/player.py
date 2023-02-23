@@ -13,39 +13,41 @@ api = Api(player_api)
 class PlayerAPI:        
     class _Create(Resource):
         def post(self):
-            ''' Read data for json body '''
+            ''' Read data from json body '''
             body = request.get_json()
             
-            ''' Avoid garbage in, error checking '''
-            # validate name
+            ''' Sanitizing '''
+            # check name
             name = body.get('name')
             if name is None or len(name) < 2:
                 return {'message': f'Name is missing, or is less than 2 characters'}, 210
-            # validate uid
+            # check uid
             uid = body.get('uid')
             if uid is None or len(uid) < 2:
                 return {'message': f'User ID is missing, or is less than 2 characters'}, 210
-            # look for password and dob
+            # get info from request body
             password = body.get('password')
             tokens = body.get('tokens')
 
             ''' #1: Key code block, setup USER OBJECT '''
-            uo = Player(name=name, 
-                      uid=uid,
-                      tokens=tokens,)
+            newPlayer = Player(
+                    name=name, 
+                    uid=uid,
+                    tokens=tokens,
+                    )
             
             ''' Additional garbage error checking '''
             # set password if provided
             if password is not None:
-                uo.set_password(password)            
+                newPlayer.set_password(password)            
             
             ''' #2: Key Code block to add user to database '''
-            # create user in database
-            player = uo.create()
-            # success returns json of user
+            # create player in database
+            player = newPlayer.create()
+            # if successful, it will return the new json object that is added
             if player:
                 return jsonify(player.read())
-            # failure returns error
+            # incase of failure, it will return an error
             return {'message': f'Processed {name}, either a format error or User ID {uid} is duplicate'}, 210
 
     class _Read(Resource):
@@ -57,17 +59,17 @@ class PlayerAPI:
     class _Update(Resource):
         def put(self):
             body = request.get_json() # get the body of the request
-            userid = body.get('uid') # get the UID (Know what to reference)
-            data = body.get('data')
-            user = Player.query.get(userid) # get the user (using the uid in this case)
+            uidFromBody = body.get('uid') # get the UID (Know what to reference)
+            data = body.get('data') # get what needs to be updated
+            user = Player.query.filter_by(_uid = uidFromBody).first() # get the user (using the uid in this case)
             user.update(data)
             return f"{user.read()} Updated"
 
     class _Delete(Resource):
         def delete(self):
             body = request.get_json()
-            uid = body.get('uid')
-            user = Player.query.get(uid)
+            uidFromBody = body.get('uid')
+            user = Player.query.filter_by(_uid = uidFromBody).first() # get the user that needs to be deleted
             user.delete()
             return f"{user.read()} Has been deleted"
 
