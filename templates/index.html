@@ -24,15 +24,15 @@
             </div>
             <div class="col-6">
                 <div class="card" style="background-color: #222222; border-radius: 30px;">
-                    <img class="card-img-top" src="{{ url_for('static', filename='assets/backendDiagram.jpeg') }}" alt="TripleAJ Logo" style="position: relative; width: 53%; left: 26.5%; padding: 15px; border-radius: 30px;">
+                    <img class="card-img-top" src="{{ url_for('static', filename='assets/backendDiagram.jpeg') }}" alt="TripleAJ Logo" style="position: relative; width: 50%; left: 25%; padding: 15px; border-radius: 30px;">
                     <div class="card-body" style="color: white; border-radius: 30px;">
                     <h5 class="card-title">What does the Backend Process look like?</h5>
                     <p class="card-text">
                         <ul>
                             <li>The database stores a player's username (uid), encrypted password, token count, and full name.</li>
-                            <li>This information is sent to the database using setter methods, which are called from the frontend when the user "signs up".</li>
                             <li>SQL and SQLAlchemy are used to keep all of the data persistent... meaning that if something were to go wrong with the server or host, then the data would not be lost.</li>
-                            <li>The frontend and backend are connected mainly through the use of Javascript's Fetch API, which allows the frontend to call a method to the API endpoint that is entered.</li>
+                            <li>The frontend and backend are connected through the use of Javascript's Fetch API, which allows the frontend to call or fetch a backend Flask endpoint.</li>
+                            <li>This information that is sent to the backend is considered a request (ie GET, POST). A Python function interprets the request, typically into a setter or getter against an SQL row and provides a response. Examples are user “signs up”, user “login” or game "spending/earning tokens" updates.</li>
                             <li>Our API can be found on the navigation bar above.</li>
                         </ul>
                     </p>
